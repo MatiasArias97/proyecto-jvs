@@ -1,7 +1,6 @@
-let nombre =  prompt ("Ingresa tu nombre");
-alert ("Bienvenido " + nombre);
 
-
+const boton = document.getElementById("boton")
+console.log (boton)
 let tasadeinteres
 const tasadeinteresanual = 50;
 let plazomeses = [6,12,24];
@@ -10,7 +9,11 @@ let montoprestamo = 10000000;
 let tasadeinteresmensual = 0
 let cuotamensual = 0
 let total = 0
-do{
+boton.addEventListener("click",manejarClick)
+function manejarClick (){
+  let nombre =  prompt ("Ingresa tu nombre");
+  alert ("Bienvenido " + nombre);
+  do{
   let sueldonetofamiliar = prompt ("ingrese su sueldo neto familiar, el mismo tiene que ser mayor o igual a 2000000");
   if ((sueldonetofamiliar == "") || (sueldonetofamiliar == null)){
     alert ("por favor verifique sus datos")
@@ -30,6 +33,7 @@ do{
     }
 }
 while(comprobar)
+}
 
   //* simulador de prestamo
 
