@@ -1,4 +1,3 @@
-
 const boton = document.getElementById("boton")
 console.log (boton)
 let tasadeinteres
@@ -9,8 +8,7 @@ let montoprestamo = 10000000;
 let tasadeinteresmensual = 0
 let cuotamensual = 0
 let total = 0
-boton.addEventListener("click",manejarClick)
-function manejarClick (){
+
   let nombre =  prompt ("Ingresa tu nombre");
   alert ("Bienvenido " + nombre);
   do{
@@ -33,7 +31,7 @@ function manejarClick (){
     }
 }
 while(comprobar)
-}
+
 
   //* simulador de prestamo
 
