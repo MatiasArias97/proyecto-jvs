@@ -1,54 +1,45 @@
-const boton = document.getElementById("boton")
-console.log (boton)
-let tasadeinteres
-const tasadeinteresanual = 50;
-let plazomeses = [6,12,24];
-let comprobar = true;
-let montoprestamo = 10000000;
-let tasadeinteresmensual = 0
-let cuotamensual = 0
-let total = 0
+document.getElementById('calcular').addEventListener('click', () => {
+  const nombre = document.getElementById('nombre').value;
+  const edad = document.getElementById('edad').value;
+  const sueldoNetoFamiliar = document.getElementById('sueldo').value;
 
-  let nombre =  prompt ("Ingresa tu nombre");
-  alert ("Bienvenido " + nombre);
-  do{
-  let sueldonetofamiliar = prompt ("ingrese su sueldo neto familiar, el mismo tiene que ser mayor o igual a 2000000");
-  if ((sueldonetofamiliar == "") || (sueldonetofamiliar == null)){
-    alert ("por favor verifique sus datos")
+  if (!nombre || !edad || !sueldoNetoFamiliar || sueldoNetoFamiliar < 2000000) {
+      document.getElementById('resultado').innerHTML = 
+          "<p>Por favor verifique sus datos o no cumple con el sueldo requerido.</p>";
+      return;
   }
+
+  const persona = new Persona(nombre, edad);
+  persona.saludar();
+
+  const calcularInteresMensual = tasaAnual => tasaAnual / 12;
+  const calcularMontoTotal = (monto, tasaAnual) => monto * (1 + tasaAnual / 100);
+  const calcularCuotaMensual = (monto, tasaMensual, plazo) => (monto * tasaMensual / 100) / plazo;
+
+  const TASAINTERES_ANUAL = 25;
+  const MONTO_PRESTAMO = 10000000;
+  const PLAZO_MESES = [12, 18, 24];
+
+  const tasaInteresMensual = calcularInteresMensual(TASAINTERES_ANUAL);
+  const montoTotal = calcularMontoTotal(MONTO_PRESTAMO, TASAINTERES_ANUAL);
+
+  let resultadoHTML = `<p>Bienvenido ${persona.nombre}, puede acceder a un préstamo de $${MONTO_PRESTAMO}.</p>`;
+  resultadoHTML += `<p>La tasa de interés mensual es de ${tasaInteresMensual}%.</p>`;
+  resultadoHTML += `<p>El monto total a devolver es de $${montoTotal.toFixed(2)}.</p>`;
+
+  PLAZO_MESES.forEach(plazo => {
+      const cuota = calcularCuotaMensual(MONTO_PRESTAMO, tasaInteresMensual, plazo);
+      resultadoHTML += `<p>En ${plazo} meses, el valor de la cuota es de $${cuota.toFixed(2)}</p>`;
+  });
+
+  document.getElementById('resultado').innerHTML = resultadoHTML;
+});
+
+function Persona(nombre, edad) {
+  this.nombre = nombre;
+  this.edad = edad;
   
-  if (sueldonetofamiliar >=2000000){
-    alert ("puede adquirir el beneficio de un prestamo");
-    calculadordeintereses (tasadeinteresanual);
-    calculadorcuotamensual (montoprestamo, tasadeinteresmensual);
-    dineroadevolver (montoprestamo, tasadeinteresanual);
-    let continuar = confirm ("Deseas continuar con el prestamo?");
-  break}
-    else{
-      (sueldonetofamiliar<2000000)
-      alert("usted no podra adquirir el beneficio")
-      break
-    }
+  this.saludar = function () {
+      console.log("Hola Soy", this.nombre);
+  }
 }
-while(comprobar)
-
-
-  //* simulador de prestamo
-
-  function dineroadevolver(montoprestamo, tasadeinteresanual){
-  total = (montoprestamo * tasadeinteresanual)
-  console.log ("el monto a devolver al banco, es de $" +total )
-  }
-  
-  function calculadordeintereses (tasadeinteresanual){
-tasadeinteresmensual = (tasadeinteresanual/12);
-console.log ("la tasa de interes mensual es de "+tasadeinteresmensual);
-  }
-  function calculadorcuotamensual (montoprestamo, tasadeinteresmensual) {
-    console.log ("cual de estas opciones se adapta a tu bolsillo?")
-    for (let i= 0; i<plazomeses.length;i++){
-    cuotamensual = (montoprestamo*tasadeinteresmensual) / plazomeses[i];
-    console.log ("en " + plazomeses[i] + " cuotas el valor es de $" + cuotamensual);
-
-  }
- }
