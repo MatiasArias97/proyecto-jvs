@@ -1,0 +1,16 @@
+[
+    {
+        "nombre": "Juan",
+        "edad": 30,
+        "montoPrestamo": 100000,
+        "plazo": 12,
+        "cuota": 8500.50
+    },
+    {
+        "nombre": "Ana",
+        "edad": 40,
+        "montoPrestamo": 200000,
+        "plazo": 24,
+        "cuota": 9500.75
+    }
+]

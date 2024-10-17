@@ -22,12 +22,12 @@ const calcularInteresMensual = (tasaAnual) => {
 };
 
 // Función para calcular la cuota mensual según el monto, la tasa y el plazo
-const calcularCuotaMensual = (monto, tasaMensual, plazo) => {
+export const calcularCuotaMensual = (monto, tasaMensual, plazo) => {
     return (monto * tasaMensual / 100) / plazo;
 };
 
 // Función para mostrar las opciones de cuotas en el DOM
-const mostrarOpcionesCuotas = (plazos, monto, tasaMensual) => {
+export const mostrarOpcionesCuotas = (plazos, monto, tasaMensual) => {
     return plazos.map(plazo => {
         const cuota = calcularCuotaMensual(monto, tasaMensual, plazo);
         return `<div>
@@ -50,7 +50,7 @@ const mostrarHistorial = () => {
 };
 
 // Función para generar el comprobante de préstamo
-const generarComprobante = (persona, monto, plazo, cuota) => {
+export const generarComprobante = (persona, monto, plazo, cuota) => {
     const detalleDiv = document.getElementById('detallePrestamo');
     detalleDiv.innerHTML = `
         <h3>Comprobante de Préstamo</h3>
@@ -171,3 +171,11 @@ document.getElementById('resetear').addEventListener('click', () => {
 
 // Mostrar historial al cargar la página
 document.addEventListener('DOMContentLoaded', mostrarHistorial);
+
+const cargarHistorial = async () => {
+    const response = await fetch("historialPrestamos.json");
+    historialPrestamos = await response.json();
+    mostrarHistorial();
+};
+
+document.addEventListener('DOMContentLoaded', cargarHistorial);
